@@ -4,10 +4,11 @@ import jakarta.persistence.*;
 
 
 import java.time.LocalDate;
+import java.util.Set;
 
 
 @Entity
-@Table(name = "students")
+@Table(name = "student")
 public class Student {
 
 
@@ -34,6 +35,7 @@ public class Student {
     @Version
     @Column(nullable = false)
     private int version;
+
 
    @Transient
     private Integer age;
@@ -80,4 +82,13 @@ public class Student {
     public void setAge(Integer age) {
         this.age = age;
     }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
 }
