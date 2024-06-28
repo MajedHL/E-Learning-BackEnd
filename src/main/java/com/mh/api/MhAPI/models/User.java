@@ -4,12 +4,11 @@ import jakarta.persistence.*;
 
 
 import java.time.LocalDate;
-import java.util.Set;
 
 
 @Entity
 @Table(name = "student")
-public class Student {
+public class User {
 
 
     @Id
@@ -24,13 +23,18 @@ public class Student {
     )
     private  Long id;
 
-    private String name;
+    private String firstName;
+
+    private String lastName;
 
     @Column(unique = true, nullable = false)
     private String email;
 
     @Column(name = "birth_date")
     private LocalDate birthDate;
+
+    @Enumerated(EnumType.ORDINAL)
+    private UserStatus statusSelect;
 
     @Version
     @Column(nullable = false)
@@ -40,7 +44,8 @@ public class Student {
    @Transient
     private Integer age;
 
-    public Student() {
+
+    public User() {
     }
 
     public Long getId() {
@@ -51,12 +56,20 @@ public class Student {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -73,6 +86,14 @@ public class Student {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public UserStatus getStatusSelect() {
+        return statusSelect;
+    }
+
+    public void setStatusSelect(UserStatus statusSelect) {
+        this.statusSelect = statusSelect;
     }
 
     public Integer getAge() {
