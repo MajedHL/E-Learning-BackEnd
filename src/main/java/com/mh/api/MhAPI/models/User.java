@@ -21,7 +21,7 @@ public class User {
             strategy = GenerationType.SEQUENCE,
             generator = "student_sequence"
     )
-    private  Long id;
+    private Long id;
 
     private String firstName;
 
@@ -32,6 +32,8 @@ public class User {
 
     @Column(name = "birth_date")
     private LocalDate birthDate;
+
+    private String password;
 
     @Enumerated(EnumType.ORDINAL)
     private UserStatus statusSelect;
@@ -112,4 +114,11 @@ public class User {
         this.version = version;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

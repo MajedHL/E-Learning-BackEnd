@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "user_cours")
+@Table(name = "user_cours_set")
 @IdClass(EnrollementId.class )
 public class Enrollement {
 
@@ -24,13 +24,6 @@ public class Enrollement {
     public Enrollement() {
     }
 
-    public User getStudent() {
-        return user;
-    }
-
-    public void setStudent(User user) {
-        this.user = user;
-    }
 
     public Cours getCours() {
         return cours;
@@ -46,5 +39,13 @@ public class Enrollement {
 
     public void setEnrollementDate(LocalDate enrollementDate) {
         this.enrollementDate = enrollementDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

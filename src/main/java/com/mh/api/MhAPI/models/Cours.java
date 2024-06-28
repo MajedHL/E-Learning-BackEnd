@@ -3,6 +3,7 @@ package com.mh.api.MhAPI.models;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -14,6 +15,12 @@ public class Cours {
     private String name;
     private LocalDate openingDate;
     private LocalDate closingDate;
+
+    @OneToMany(mappedBy = "cours")
+    private List<Quizz> quizzList;
+
+    @OneToMany(mappedBy = "cours")
+    private List<Step> stepList;
    @Transient
     private Boolean isOpen;
 
@@ -57,7 +64,8 @@ public class Cours {
     }
 
     public Boolean getOpen() {
-        return isOpen;
+        LocalDate today =  LocalDate.now();
+        return today.isAfter(openingDate) && today.isBefore(closingDate);
     }
 
     public void setOpen(Boolean open) {
@@ -71,4 +79,22 @@ public class Cours {
     public void setVersion(int version) {
         this.version = version;
     }
+
+    public List<Quizz> getQuizzList() {
+        return quizzList;
+    }
+
+    public void setQuizzList(List<Quizz> quizzList) {
+        this.quizzList = quizzList;
+    }
+
+    public List<Step> getStepList() {
+        return stepList;
+    }
+
+    public void setStepList(List<Step> stepList) {
+        this.stepList = stepList;
+    }
+
+
 }

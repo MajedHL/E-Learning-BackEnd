@@ -2,8 +2,8 @@ package com.mh.api.MhAPI.models;
 
 import java.io.Serializable;
 
-public class EnrollementId implements Serializable {
+public class ExamedId implements Serializable {
 
     private Long user;
-    private Long cours;
+    private Long quizz;
 }
