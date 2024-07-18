@@ -17,28 +17,28 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getAllStudents(){
+    public List<User> getAllUsers(){
         return userRepository.findAll();
     }
 
-    public String addStudent(User user){
-       if(userRepository.findStudentByEmail(user.getEmail()).isPresent()){
-           return "Student exist";
+    public String addUser(User user){
+       if(userRepository.findUserByEmail(user.getEmail()).isPresent()){
+           return "User exist";
        }
         userRepository.save(user);
-       return "Student created";
+       return "User created";
     }
 
-    public String deleteStudent(Long id){
+    public String deleteUser(Long id){
      if(!userRepository.existsById(id)){
-         return "Student with id "+id+" doesnt exist";
+         return "User with id "+id+" doesnt exist";
      }
         userRepository.deleteById(id);
-     return "Student with id "+id+" deleted";
+     return "User with id "+id+" deleted";
     }
 
 
-    public String updateStudent(Long id, User newUser){
+    public String updateUser(Long id, User newUser){
         String message=" student with id "+id+" has been updated";
         if(!userRepository.existsById(id)){
             message = "Student with id "+id+" doesnt exist, a new student has been created";

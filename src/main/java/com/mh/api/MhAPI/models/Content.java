@@ -22,6 +22,9 @@ public class Content {
 
     private Integer orderNumber;
 
+    @Enumerated(EnumType.ORDINAL)
+    private ContentType type;
+
     public Content() {
     }
 
@@ -65,13 +68,19 @@ public class Content {
         this.step = step;
     }
 
-    public Integer getorderNumber() {
+    public Integer getOrderNumber() {
         return orderNumber;
     }
 
-    public void setorderNumber(Integer orderNumber) {
+    public void setOrderNumber(Integer orderNumber) {
         this.orderNumber = orderNumber;
     }
 
+    public ContentType getType() {
+        return type;
+    }
 
+    public void setType(ContentType type) {
+        this.type = type;
+    }
 }
