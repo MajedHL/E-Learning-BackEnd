@@ -14,6 +14,7 @@ public class Content {
 
     private String title;
 
+    @Column(length = 1000)
     private String url;
 
     @ManyToOne

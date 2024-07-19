@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "api/content")
 public class ContentController {
@@ -20,7 +22,7 @@ public class ContentController {
     }
 
     @PostMapping()
-    public ResponseEntity<String> addContent(@RequestParam("content") String contentJson, @RequestParam("file") MultipartFile file){
+    public Content addContent(@RequestParam("content") String contentJson, @RequestParam(value = "file", required = false) MultipartFile file){
 
         // Deserialize JSON content to Content object
         Content content;
@@ -29,14 +31,24 @@ public class ContentController {
             System.out.println("file:"+file);
             ObjectMapper objectMapper = new ObjectMapper();
             content = objectMapper.readValue(contentJson, Content.class);
-            this.contentService.addContent(content);
+            ResponseEntity.ok("Content added successfully");
+             return  this.contentService.addContent(content, file);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Failed to parse content data");
+            ResponseEntity.badRequest().body(e.getMessage());
+            return null;
         }
 
 
 
-        return ResponseEntity.ok("Content added successfully");
+    }
 
+    @GetMapping
+    public List<Content> getContentList(){
+        try {
+            return contentService.getContentList();
+        }catch (Exception e){
+             ResponseEntity.badRequest().body(e.getMessage());
+             return null;
+        }
     }
 }
