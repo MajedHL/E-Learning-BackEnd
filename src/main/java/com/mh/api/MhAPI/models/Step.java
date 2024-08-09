@@ -13,8 +13,8 @@ public class Step {
     private Long id;
 
    @ManyToOne
-   @JoinColumn(name = "cours_id")
-    private Cours cours;
+   @JoinColumn(name = "course_id")
+    private Course course;
 
    private Integer orderNumber;
 
@@ -33,12 +33,12 @@ public class Step {
         this.id = id;
     }
 
-    public Cours getCours() {
-        return cours;
+    public Course getCours() {
+        return course;
     }
 
-    public void setCours(Cours cours) {
-        this.cours = cours;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public Integer getorderNumber() {

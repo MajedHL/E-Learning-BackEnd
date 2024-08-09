@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "user_cours_set")
+@Table(name = "user_course_set")
 @IdClass(EnrollementId.class )
 public class Enrollement {
 
@@ -16,8 +16,8 @@ public class Enrollement {
 
     @ManyToOne
     @Id
-    @JoinColumn(name = "cours_id")
-    private Cours cours;
+    @JoinColumn(name = "course_id")
+    private Course course;
 
     private LocalDate enrollementDate;
 
@@ -25,12 +25,12 @@ public class Enrollement {
     }
 
 
-    public Cours getCours() {
-        return cours;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setCours(Cours cours) {
-        this.cours = cours;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public LocalDate getEnrollementDate() {

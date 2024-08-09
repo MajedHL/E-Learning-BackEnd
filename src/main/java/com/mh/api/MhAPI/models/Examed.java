@@ -16,6 +16,7 @@ public class Examed {
     @JoinColumn(name = "quizz_id")
     private Quizz quizz;
 
+
     private Double score;
 
 

@@ -15,8 +15,8 @@ public class Quizz {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "cours_id")
-    private Cours cours;
+    @JoinColumn(name = "course_id")
+    private Course course;
 
     @OneToMany(mappedBy = "quizz")
     private List<Question> questionList;
@@ -42,12 +42,12 @@ public class Quizz {
         this.name = name;
     }
 
-    public Cours getCours() {
-        return cours;
+    public Course getCours() {
+        return course;
     }
 
-    public void setCours(Cours cours) {
-        this.cours = cours;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 
     public Double getValue() {

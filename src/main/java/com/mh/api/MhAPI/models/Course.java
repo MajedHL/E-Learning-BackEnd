@@ -4,31 +4,54 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 @Entity
-@Table(name = "cours")
-public class Cours {
+@Table(name = "course")
+public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private String name;
+
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     private LocalDate openingDate;
     private LocalDate closingDate;
 
-    @OneToMany(mappedBy = "cours")
+    @OneToMany(mappedBy = "course")
     private List<Quizz> quizzList;
 
-    @OneToMany(mappedBy = "cours")
+    @OneToMany(mappedBy = "course")
     private List<Step> stepList;
    @Transient
     private Boolean isOpen;
+    @Transient
+    private Boolean isClosed;
+    public Boolean getIsClosed() {
+        LocalDate today =  LocalDate.now();
+        if(closingDate == null) return false;
+        return today.isAfter(closingDate);
+    }
+
+    public void setIsClosed(Boolean isClosed) {
+        this.isClosed = isClosed;
+    }
+
+
 
     @Version
     @Column(nullable = false)
     private int version;
 
-    public Cours() {
+    public Course() {
     }
 
     public Long getId() {
@@ -65,6 +88,7 @@ public class Cours {
 
     public Boolean getOpen() {
         LocalDate today =  LocalDate.now();
+        if(openingDate == null) return true;
         return today.isAfter(openingDate) && today.isBefore(closingDate);
     }
 
