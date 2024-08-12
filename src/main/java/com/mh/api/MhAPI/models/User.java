@@ -7,19 +7,19 @@ import java.time.LocalDate;
 
 
 @Entity
-@Table(name = "student")
+@Table(name = "client")
 public class User {
 
 
     @Id
     @SequenceGenerator(
-            name = "student_sequence",
-            sequenceName = "student_sequence",
+            name = "client_sequence",
+            sequenceName = "client_sequence",
             allocationSize = 1
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "student_sequence"
+            generator = "user_sequence"
     )
     private Long id;
 
@@ -99,6 +99,7 @@ public class User {
     }
 
     public Integer getAge() {
+       if(birthDate == null) return null;
         return birthDate.until(LocalDate.now()).getYears();
     }
 

@@ -2,10 +2,13 @@ package com.mh.api.MhAPI.services;
 
 import com.mh.api.MhAPI.models.User;
 import com.mh.api.MhAPI.repositories.UserRepository;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -21,12 +24,14 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public String addUser(User user){
-       if(userRepository.findUserByEmail(user.getEmail()).isPresent()){
-           return "User exist";
+    public ResponseEntity<Long> addUser(User user){
+        Optional<User> checkUser = userRepository.findUserByEmail(user.getEmail());
+        if(checkUser.isPresent()){
+           return  ResponseEntity.status(409).body(checkUser.get().getId());
        }
         userRepository.save(user);
-       return "User created";
+       return ResponseEntity.status(201).body(user.getId());
+
     }
 
     public String deleteUser(Long id){
@@ -39,9 +44,9 @@ public class UserService {
 
 
     public String updateUser(Long id, User newUser){
-        String message=" student with id "+id+" has been updated";
+        String message=" user with id "+id+" has been updated";
         if(!userRepository.existsById(id)){
-            message = "Student with id "+id+" doesnt exist, a new student has been created";
+            message = "user with id "+id+" doesnt exist, a new user has been created";
         }
         userRepository.save(newUser);
         return message;

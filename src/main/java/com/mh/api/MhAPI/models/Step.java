@@ -21,9 +21,13 @@ public class Step {
    @OneToMany(mappedBy = "step")
    private List<Content> contentList;
 
+   private String title;
+
+
 
     public Step() {
     }
+
 
     public Long getId() {
         return id;
@@ -33,7 +37,7 @@ public class Step {
         this.id = id;
     }
 
-    public Course getCours() {
+    public Course getCourse() {
         return course;
     }
 
@@ -41,11 +45,11 @@ public class Step {
         this.course = course;
     }
 
-    public Integer getorderNumber() {
+    public Integer getOrderNumber() {
         return orderNumber;
     }
 
-    public void setorderNumber(Integer orderNumber) {
+    public void setOrderNumber(Integer orderNumber) {
         this.orderNumber = orderNumber;
     }
 
@@ -57,5 +61,11 @@ public class Step {
         this.contentList = contentList;
     }
 
+    public String getTitle() {
+        return title;
+    }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }
