@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class AuthService {
 
     private final UserRepository userRepository;
-//    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManager authenticationManager;
 
@@ -22,18 +22,19 @@ public class AuthService {
 
     @Autowired
     public AuthService(UserRepository userRepository,
-//                       PasswordEncoder passwordEncoder,
+                       PasswordEncoder passwordEncoder,
                        JwtTokenProvider jwtTokenProvider,
                        AuthenticationManager authenticationManager,
                        UserService userService) {
         this.userRepository = userRepository;
-//        this.passwordEncoder = passwordEncoder;
+        this.passwordEncoder = passwordEncoder;
         this.jwtTokenProvider = jwtTokenProvider;
         this.authenticationManager = authenticationManager;
         this.userService = userService;
     }
 
     public void registerUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.addUser(user);
     }
 
