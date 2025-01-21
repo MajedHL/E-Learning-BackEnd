@@ -1,5 +1,6 @@
 package com.mh.api.MhAPI.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -19,6 +20,7 @@ public class Content {
 
     @ManyToOne
     @JoinColumn(name = "step_id")
+    @JsonBackReference
     private Step step;
 
     private Integer orderNumber;

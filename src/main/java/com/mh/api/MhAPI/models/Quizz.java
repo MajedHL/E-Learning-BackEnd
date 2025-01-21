@@ -1,5 +1,7 @@
 package com.mh.api.MhAPI.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -16,9 +18,11 @@ public class Quizz {
 
     @ManyToOne
     @JoinColumn(name = "course_id")
+    @JsonBackReference
     private Course course;
 
     @OneToMany(mappedBy = "quizz")
+    @JsonManagedReference
     private List<Question> questionList;
 
     private Double value;

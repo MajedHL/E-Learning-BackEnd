@@ -1,5 +1,7 @@
 package com.mh.api.MhAPI.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -15,6 +17,38 @@ public class Course {
 
     private String description;
 
+    private LocalDate openingDate;
+    private LocalDate closingDate;
+
+    @OneToMany(mappedBy = "course")
+    @JsonManagedReference
+    private List<Quizz> quizzList;
+
+    @OneToMany(mappedBy = "course")
+    @JsonManagedReference
+    private List<Step> stepList;
+
+   @Transient
+    private Boolean isOpen;
+    @Transient
+    private Boolean isClosed;
+
+    @Version
+    @Column(nullable = false)
+    private int version;
+
+
+    public Boolean getIsClosed() {
+        LocalDate today =  LocalDate.now();
+        if(closingDate == null) return false;
+        isClosed = today.isAfter(closingDate);
+        return isClosed;
+    }
+
+    public void setIsClosed(Boolean isClosed) {
+        this.isClosed = isClosed;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -23,33 +57,6 @@ public class Course {
         this.description = description;
     }
 
-    private LocalDate openingDate;
-    private LocalDate closingDate;
-
-    @OneToMany(mappedBy = "course")
-    private List<Quizz> quizzList;
-
-    @OneToMany(mappedBy = "course")
-    private List<Step> stepList;
-   @Transient
-    private Boolean isOpen;
-    @Transient
-    private Boolean isClosed;
-    public Boolean getIsClosed() {
-        LocalDate today =  LocalDate.now();
-        if(closingDate == null) return false;
-        return today.isAfter(closingDate);
-    }
-
-    public void setIsClosed(Boolean isClosed) {
-        this.isClosed = isClosed;
-    }
-
-
-
-    @Version
-    @Column(nullable = false)
-    private int version;
 
     public Course() {
     }
@@ -86,10 +93,12 @@ public class Course {
         this.closingDate = closingDate;
     }
 
-    public Boolean getOpen() {
+
+    public Boolean getIsOpen() {
         LocalDate today =  LocalDate.now();
         if(openingDate == null) return true;
-        return today.isAfter(openingDate) && today.isBefore(closingDate);
+        isOpen = today.isAfter(openingDate) && today.isBefore(closingDate);
+        return isOpen;
     }
 
     public void setOpen(Boolean open) {

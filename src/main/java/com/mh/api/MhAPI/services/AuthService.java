@@ -3,6 +3,7 @@ package com.mh.api.MhAPI.services;
 import com.mh.api.MhAPI.config.security.JwtTokenProvider;
 import com.mh.api.MhAPI.models.User;
 import com.mh.api.MhAPI.repositories.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class AuthService {
 
     private final UserRepository userRepository;
@@ -33,7 +35,7 @@ public class AuthService {
         this.userService = userService;
     }
 
-    public void registerUser(User user) {
+    public void registerUser(User user) throws Exception{
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.addUser(user);
     }
@@ -45,7 +47,7 @@ public class AuthService {
                         password
                 )
         );
-
+    log.info("authentication : {}",authentication);
         // Generate JWT token after successful authentication
         return jwtTokenProvider.generateToken(authentication);
     }

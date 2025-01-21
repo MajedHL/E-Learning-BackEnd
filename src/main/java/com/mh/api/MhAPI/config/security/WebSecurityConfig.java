@@ -1,8 +1,10 @@
 package com.mh.api.MhAPI.config.security;
 
+import com.mh.api.MhAPI.models.UserStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -40,8 +42,14 @@ public class WebSecurityConfig  {
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize ->
                         authorize
+//                                .requestMatchers("/api/**").permitAll()
+//TODO allow clients to request
                                 .requestMatchers("/api/auth/**").permitAll()
-                                 .requestMatchers("/error").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/course").permitAll()
+                                .requestMatchers("/v3/api-docs/**").permitAll()
+                                .requestMatchers("/swagger-ui/**").permitAll()
+                                .requestMatchers("/error").permitAll()//client auth after this
+                                .requestMatchers("/api/**").hasRole(UserStatus.ADMIN.name())
                                 .anyRequest().authenticated()
                 )
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

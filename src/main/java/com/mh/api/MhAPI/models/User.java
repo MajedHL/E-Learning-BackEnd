@@ -1,6 +1,7 @@
 package com.mh.api.MhAPI.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ public class User {
 
 
     @Id
+    @NotNull
     @SequenceGenerator(
             name = "client_sequence",
             sequenceName = "client_sequence",
